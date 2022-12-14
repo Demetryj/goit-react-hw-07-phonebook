@@ -5,7 +5,7 @@ import { ElementListContacts } from 'components/ElementListContacts';
 import { List, ElementList } from './ListContactsStyled';
 
 export const ListContacts = () => {
-  const contacts = useSelector(getContacts).initialContacts;
+  const contacts = useSelector(getContacts);
   const filterValue = useSelector(getFilterValue);
 
   const visibileContacts = useMemo(() => {
