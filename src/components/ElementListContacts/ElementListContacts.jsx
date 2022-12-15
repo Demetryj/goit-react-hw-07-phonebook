@@ -1,24 +1,34 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteContacts } from 'redux/contactsSlice';
 import { Text, Button, Circle } from './ElementListContactsStyled';
+import { deleteContact } from 'redux/operations';
+import { useSelector } from '../../../node_modules/react-redux/es/exports';
+import { selectError } from 'redux/selectors';
+import toast, { Toaster } from 'react-hot-toast';
 
-export const ElementListContacts = ({ id, name, number }) => {
+export const ElementListContacts = ({ id, name, phone }) => {
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
 
   const handleDelete = () => {
-    dispatch(deleteContacts({ id: id }));
+    dispatch(deleteContact(id));
+
+    if (error) {
+      toast.error(`${name} not deleted`);
+    }
+    toast.success(`${name} deleted to contacts`);
   };
 
   return (
     <>
       <Circle></Circle>
       <Text>
-        {name}: {number}
+        {name}: {phone}
       </Text>
       <Button type="button" onClick={handleDelete}>
         Delete
       </Button>
+      <Toaster />
     </>
   );
 };
@@ -26,5 +36,5 @@ export const ElementListContacts = ({ id, name, number }) => {
 ElementListContacts.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
 };

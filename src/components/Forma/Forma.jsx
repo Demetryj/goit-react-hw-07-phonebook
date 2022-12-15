@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import toast, { Toaster } from 'react-hot-toast';
-import { getContacts } from 'redux/selectors';
-import { addContacts } from 'redux/contactsSlice';
+import { selectContacts, selectError } from 'redux/selectors';
 import { Form, Label, Input, Button } from './FormaStyled';
+import { addContact } from 'redux/operations';
 
 export const Forma = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const contacts = useSelector(getContacts).initialContacts;
+  const contacts = useSelector(selectContacts);
+  const error = useSelector(selectError);
+
   const dispatch = useDispatch();
 
   const handleChangeInput = event => {
@@ -19,8 +20,8 @@ export const Forma = () => {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
 
       default:
@@ -38,10 +39,15 @@ export const Forma = () => {
       return;
     }
 
-    dispatch(addContacts({ id: nanoid(), name, number }));
+    dispatch(addContact({ name, phone }));
+
+    if (error) {
+      toast.error(`${name} not added`);
+    }
+    toast.success(`${name} added to contacts`);
 
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -62,12 +68,12 @@ export const Forma = () => {
       </Label>
 
       <Label htmlFor="telId">
-        Number
+        Phone
         <Input
           id="telId"
           type="tel"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

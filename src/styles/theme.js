@@ -7,6 +7,7 @@ export const theme = {
     backgroundAccentBtn: 'rgba(11, 38, 222)',
     backgroundAccentDeleteBtn: 'rgba(255, 0, 0)',
     backgroundBtn: 'rgba(84, 101, 221, 0.7)',
+    loading: 'rgba(11, 38, 222)', //
     accent: 'rgba(37, 40, 239, 0.685)',
     red: '#f00', //
     white: 'white',
