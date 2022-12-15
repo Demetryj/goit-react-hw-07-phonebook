@@ -4,7 +4,7 @@ import { Text, Button, Circle } from './ElementListContactsStyled';
 import { deleteContact } from 'redux/operations';
 import { useSelector } from '../../../node_modules/react-redux/es/exports';
 import { selectError } from 'redux/selectors';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 export const ElementListContacts = ({ id, name, phone }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const ElementListContacts = ({ id, name, phone }) => {
     if (error) {
       toast.error(`${name} not deleted`);
     }
-    toast.success(`${name} deleted to contacts`);
+    toast.success(`${name} deleted from contacts`);
   };
 
   return (
@@ -28,7 +28,6 @@ export const ElementListContacts = ({ id, name, phone }) => {
       <Button type="button" onClick={handleDelete}>
         Delete
       </Button>
-      <Toaster />
     </>
   );
 };

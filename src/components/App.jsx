@@ -27,7 +27,7 @@ export const App = () => {
       <TitleContacts>Contacts</TitleContacts>
       <Filter />
       {!isLoading && error && <p>{error}</p>}
-      {contacts.length > 0 && <ListContacts />}
+      {contacts.length > 0 && !error && <ListContacts />}
       {isLoading && <Loader />}
     </Box>
   );
